@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheBlog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div>
+        <h1>TheBlog</h1>
+        <p class="writings">Discover the secrets to unlocking your full potential and achieving your dreams with our latest blog.</p>
+        
+    </div>
+    <div class="link_div">
+        <a href="/" class="link">Home</a>
+    </div>
+    </header>
+    <div class="main_signup" id="signup_only">
+        <h2>Signup</h2>
+        <% if (UserError) { %>
+            <p class="error"><%= UserError.message %></p>
+        <% } %> 
+        <form action="/v1/signup" method="post">
+            <label for="first_name">First Name:</label><br>
+            <input type="text" id="first_name" name="first_name" value=""><br>
+            <label for="last_name">Last Name:</label><br>
+            <input type="text" id="last_name" name="last_name" value=""><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email" value=""><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" value=""><br>
+            <label for="confirm_password">Confirm Password:</label><br>
+            <input type="password" id="confirm_password" name="confirm_password" value=""><br><br>
+            <input type="submit" value="Submit">
+        </form>
+          <br><a href="/login" class="special_links">Already a user? click me</a>
+    </div>
+    <footer>
+        <p>designed by Toluwanimi: 2023</p>
+    </footer>
+</body>
+</html>

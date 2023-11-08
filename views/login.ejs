@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheBlog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div>
+        <h1>TheBlog</h1>
+        <p class="writings">Discover the secrets to unlocking your full potential and achieving your dreams with our latest blog.</p>
+        
+    </div>
+    <div class="link_div">
+        <a href="/" class="link">Home</a>
+    </div>
+    </header>
+    <div class="main_signup">
+        <h2>Login</h2>
+        <% if (invalidCredentials) { %>
+            <p class="error"><%= invalidCredentials.message %></p>
+        <% } %> 
+    <div>
+        <form action="/v1/login" method="post">
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email" value=""><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" value=""><br><br>
+            <input type="submit" value="Submit">
+        </form>
+           
+    </div>
+    <br><a href="/signup" class="special_links">Not a user? click me</a>
+    <br><a href="/forgot_password" class="password_link">forgot password?</a>
+    
+    </div>
+    <footer>
+        <p>designed by Toluwanimi: 2023</p>
+    </footer>
+</body>
+</html>

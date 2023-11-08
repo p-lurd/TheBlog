@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheBlog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div>
+        <h1>TheBlog</h1>
+        <p class="writings">Discover the secrets to unlocking your full potential and achieving your dreams with our latest blog.<br/> Write something :), <%=user.first_name%></p>
+        <div class="link_div">
+        <a href="/" class="link">Home</a>
+        <a href="/blogs/users" class="link">My posts</a>
+        </div>
+    </div>
+    </header>
+    <form action="/blogs/post" method="post" class="post">
+        <h2>Showcase your creativity:</h2>
+        <% if (errorParam) { %>
+            <p class="error"><%= errorParam.message %></p>
+        <% } %> 
+        <label for="title">Title:</label>
+        <textarea type="text" id="title" name="title" value="" placeholder="Title" class="title" maxlength="50"></textarea><br>
+        <label for="description">Description</label>
+        <textarea type="text" id="description" name="description" class="description" value="" placeholder="This is a description of my post, short and concise" maxlength="100"></textarea><br>
+        <label for="body">Body of the post:</label>
+        <textarea type="text" id="body" name="body" value="" class="body" placeholder="Content of my post"></textarea><br>
+        <label for="tags">Tags:</label>
+        <textarea type="text" id="tags" name="tags" value="" class="tags" placeholder="Tags separated by (,) e.g (animals,fish,school)"></textarea>
+        <input type="submit" value="Post" class="link width">
+    </form>
+
+    <div class="foot">
+    <footer>
+        <p>designed by Toluwanimi</p>
+    </footer>
+</div>
+</body>
+</html>

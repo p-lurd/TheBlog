@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheBlog</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>TheBlog</h1>
+        <p class="writings">
+          Join us on a journey of self-discovery and empowerment as we explore
+          the tools,<br />
+          tips, and insights that will inspire and transform your life.
+        </p>
+        <div class="link_div">
+          <%if(!token){%>
+          <div>
+            <a href="/signup" class="link">Get Started</a>
+            <a href="/login" class="link">login</a>
+          </div>
+          <%}%>
+          <%if(token){%>
+            <div><a href="/logout" class="link">Log out</a></div>
+            <%}%>
+          <a href="/blogs/users" class="link">My Blogs</a>
+        </div>
+      </div>
+    </header>
+
+    <!--the article-->
+    <div class="article_single">
+      <h1><%= singleBlog.title %></h1>
+      <h3><%= singleBlog.author %></h3>
+
+      <p><%= singleBlog.description %></p>
+      <br />
+      <pre class="formatted"><%= singleBlog.body %></pre>
+      <div>
+        <span class="small_info"
+          ><%= singleBlog.timestamp.split(",")[0] %></span
+        >
+        <span class="small_info"><%= singleBlog.read_count %> times</span>
+
+        <span class="small_info"><%= singleBlog.reading_time %> min read</span>
+        <div>
+          <% singleBlog.tags.forEach(tag => { %>
+          <span class="small_info"><%=tag%></span>
+          <% }); %>
+        </div>
+        <br />
+      </div>
+    </div>
+    <div class="foot">
+      <footer>
+        <p>designed by Toluwanimi</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheBlog</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>TheBlog</h1>
+        <p class="writings">
+          Join us on a journey of self-discovery and empowerment as we explore
+          the tools,<br />
+          tips, and insights that will inspire and transform your life. <br>
+          Welcome home, <%=user.first_name%>
+        </p>
+        <div class="link_div">
+          <a href="/blogs/users" class="link">My Blogs</a>
+        </div>
+      </div>
+    </header>
+
+    <!--the article-->
+    <form action="/blogs/user/edit" method="POST" class="post" id="form_submit">
+        <h2>Showcase your creativity:</h2>
+        <% if (errorParam) { %>
+            <p class="error"><%= errorParam.message %></p>
+        <% } %>
+        <label for="title">Title:</label>
+        <textarea type="text" id="title" name="title" value=""class="title" class="title" maxlength="50"><%= singleBlog.title %></textarea><br>
+        <label for="description">Description</label>
+        <textarea type="text" id="description" name="description" class="description" value="" maxlength="100"><%= singleBlog.description %></textarea><br>
+        <label for="body">Body of the post:</label>
+        <textarea type="text" id="body" name="body" value="" class="body"><%= singleBlog.body %></textarea><br>
+        <label for="tags">Tags:</label>
+        <textarea type="text" id="tags" name="tags" value="" class="tags"><% singleBlog.tags.forEach((tag, index, array) => { %><%= tag %><%= index < array.length - 1 ? ',' : '' %><% }); %></textarea>
+        <input type="hidden" name="_id" value="<%= singleBlog._id %>" id="edit">
+        <%if (user){%>
+            <div class="link_div space_around">
+                <input type="submit" value="Edit" class="link" id="edit">
+            <a href="/blogs/publish/<%= singleBlog._id %>" class="link" id="publish">Publish</a>
+            <a href="/blogs/delete/<%= singleBlog._id %>" class="link" id="delete">Delete</a>
+          </div>
+          <%}%>
+    </form>
+
+    
+    <div class="foot">
+      <footer>
+        <p>designed by Toluwanimi</p>
+      </footer>
+    </div>
+
+
+
+    <script>
+        // document.getElementById("form_submit").addEventListener("submit", function(event) {
+        //   event.preventDefault();
+
+        //   const formData = new FormData(this);
+        //   fetch("/blogs/user/edit", {
+        //     method: "PATCH",
+        //     body: formData,
+        //   })
+        //     .then(response => {
+        //         window.location.href = "/blogs/users";
+        //     })
+        //     .catch(error => {
+        //         window.location.href = '/blogs/user/<%= singleBlog._id %>'
+        //       // Handle errors
+        //     });
+        // });
+        document.getElementById("delete").addEventListener("click", function(event) {
+          event.preventDefault();
+          
+          fetch("/blogs/delete/<%= singleBlog._id %>", {
+            method: "DELETE",
+          })
+            .then(response => {
+                window.location.href = "/blogs/users";
+            })
+            .catch(error => {
+                window.location.href = '/blogs/user/<%= singleBlog._id %>'
+            });
+        });
+        document.getElementById("publish").addEventListener("click", function(event) {
+          event.preventDefault();
+          
+          fetch("/blogs/publish/<%= singleBlog._id %>", {
+            method: "PATCH",
+          })
+            .then(response => {
+             window.location.href = "/blogs/users";
+            })
+            .catch(error => {
+                window.location.href = '/blogs/user/<%= singleBlog._id %>'
+            });
+        });
+    </script>
+  </body>
+</html>

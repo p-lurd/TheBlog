@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheBlog</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>TheBlog</h1>
+        <p class="writings">
+          Discover the secrets to unlocking your full potential and achieving
+          your dreams with our latest blog.<br />
+          Welcome Home, <%=user.first_name%>
+        </p>
+        <div class="link_div">
+          <a href="/" class="link">Home</a>
+          <div>
+            <a href="/blogs/post" class="link">Write a blog</a>
+            <a href="/logout" class="link">Log out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search and Filter Form -->
+    <form action="/blogs/users" method="get" class="index_form">
+      <div>
+        <label for="state">Filter by:</label>
+        <select name="state">
+          <option value="">All(draft/published)</option>
+          <option value="draft">Draft</option>
+          <option value="published">Published</option>
+        </select>
+        
+        <button type="submit">Filter</button>
+      </div>
+    </form>
+
+    <!--the articles-->
+    <h2>Topics:</h2>
+    <section class="article_group_parent">
+      <div class="article_group">
+        <% blogsList.forEach(blog => { %>
+        <a href="/blogs/user/<%= blog._id %>" class="each_article">
+          <h2><%= blog.title %></h2>
+          <h3><%= blog.author %></h3>
+
+          <p><%= blog.description %></p>
+          <div>
+            <span class="small_info"><%= blog.timestamp.split(",")[0] %></span>
+            <span class="small_info"><%= blog.read_count %> times</span>
+
+            <span class="small_info"><%= blog.reading_time %> min read</span>
+            <div>
+              <% blog.tags.forEach(tag => { %>
+              <span class="small_info"><%=tag%></span>
+              <% }); %>
+            </div>
+            <br />
+          </div>
+        </a>
+
+        <% }); %> <% if(blogsList.length === 0){%>
+        <h2>You have no posts yet, lets make some!</h2>
+        <%}%>
+      </div>
+    </section>
+
+    <div class="foot">
+      <!-- Pagination -->
+      <div class="pagination">
+        <% if (currentPage > 1) { %>
+        <a href="?page=<%= currentPage - 1 %>" class="medium_info">Previous</a>
+        <% } %>
+        <span class="medium_info"><%=currentPage%></span>
+        <% if (currentPage < totalPages) { %>
+        <a href="?page=<%= currentPage + 1 %>" class="medium_info">Next</a>
+        <% } %>
+      </div>
+      <!-- the footer -->
+      <footer>
+        <p>designed by Toluwanimi</p>
+      </footer>
+    </div>
+  </body>
+</html>

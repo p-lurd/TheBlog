@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheBlog</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>TheBlog</h1>
+        <p class="writings">
+          Discover the secrets to unlocking your full potential and achieving
+          your dreams with our latest blog.<br />
+          Join us on a journey of self-discovery and empowerment as we explore
+          the tools,<br />
+          tips, and insights that will inspire and transform your life.
+        </p>
+        <div class="link_div">
+          <%if(!token){%>
+          <div>
+            <a href="/signup" class="link">Get Started</a>
+            <a href="/login" class="link">login</a>
+          </div>
+          <%}%>
+          <%if(token){%>
+            <div><a href="/logout" class="link">Log out</a></div>
+            <%}%>
+          <a href="/blogs/users" class="link">My Blogs</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="article_group_parent">
+      <!-- Search and Filter Form -->
+      <form action="/" method="get" class="index_form">
+        <div>
+          <label for="filterBy">Filter by:</label>
+          <select name="filterBy">
+            <option value="">--</option>
+            <option value="author">Author</option>
+            <option value="title">Title</option>
+            <option value="tags">Tags</option>
+          </select>
+          <input type="text" name="searchValue" placeholder="Search..." />
+        </div>
+
+        <!-- Order By Dropdown -->
+        <div>
+          <label for="orderBy">Arrange by</label>
+          <select name="orderBy">
+            <option value="">--</option>
+            <option value="read_count">Read Count</option>
+            <option value="reading_time">Reading Time</option>
+            <option value="timestamp">Timestamp</option>
+          </select>
+        </div>
+
+        <button type="submit">Search</button>
+      </form>
+
+      <!--the articles-->
+      <h2>Topics:</h2>
+      <div class="article_group">
+        <% blogsList.forEach(blog => { %>
+        <a href="/blog/<%= blog._id %>" class="each_article">
+          <h2><%= blog.title %></h2>
+          <h3><%= blog.author %></h3>
+
+          <p><%= blog.description %></p>
+          <div>
+            <span class="small_info"><%= blog.timestamp.split(",")[0] %></span>
+            <span class="small_info"><%= blog.read_count %> times</span>
+
+            <span class="small_info"><%= blog.reading_time %> min read</span>
+            <div>
+              <% blog.tags.forEach(tag => { %>
+              <span class="small_info"><%=tag%></span>
+              <% }); %>
+            </div>
+            <br />
+          </div>
+        </a>
+
+        <% }); %>
+      </div>
+    </section>
+
+    <div class="foot">
+      <!-- Pagination -->
+      <div class="pagination">
+        <% if (currentPage > 1) { %>
+        <a
+          href="?page=<%= encodeURIComponent(String(Number(currentPage) - 1)) %>"
+          class="medium_info"
+          >Previous</a
+        >
+        <% } %>
+        <span class="medium_info"><%=currentPage%></span>
+        <% if (currentPage < totalPages) { %>
+        <a
+          href="?page=<%= encodeURIComponent(String(Number(currentPage) + 1)) %>"
+          class="medium_info"
+          >Next</a
+        >
+        <% } %>
+      </div>
+      <footer>
+        <p>designed by Toluwanimi</p>
+      </footer>
+    </div>
+  </body>
+</html>
